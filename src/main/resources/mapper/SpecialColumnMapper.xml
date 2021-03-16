@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ddogring.dec.mapper.SpecialColumnMapper">
+  <resultMap id="BaseResultMap" type="com.ddogring.dec.entity.SpecialColumn">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="special_column_name" jdbcType="VARCHAR" property="specialColumnName" />
+    <result column="is_enable" jdbcType="BIT" property="isEnable" />
+    <result column="create_time" jdbcType="DATE" property="createTime" />
+    <result column="upd_time" jdbcType="DATE" property="updTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, special_column_name, is_enable, create_time, upd_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_special_column
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_special_column
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ddogring.dec.entity.SpecialColumn">
+    insert into t_special_column (id, special_column_name, is_enable, 
+      create_time, upd_time)
+    values (#{id,jdbcType=INTEGER}, #{specialColumnName,jdbcType=VARCHAR}, #{isEnable,jdbcType=BIT}, 
+      #{createTime,jdbcType=DATE}, #{updTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ddogring.dec.entity.SpecialColumn">
+    insert into t_special_column
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="specialColumnName != null">
+        special_column_name,
+      </if>
+      <if test="isEnable != null">
+        is_enable,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updTime != null">
+        upd_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="specialColumnName != null">
+        #{specialColumnName,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnable != null">
+        #{isEnable,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="updTime != null">
+        #{updTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ddogring.dec.entity.SpecialColumn">
+    update t_special_column
+    <set>
+      <if test="specialColumnName != null">
+        special_column_name = #{specialColumnName,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnable != null">
+        is_enable = #{isEnable,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="updTime != null">
+        upd_time = #{updTime,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ddogring.dec.entity.SpecialColumn">
+    update t_special_column
+    set special_column_name = #{specialColumnName,jdbcType=VARCHAR},
+      is_enable = #{isEnable,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=DATE},
+      upd_time = #{updTime,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectSpecialColumnList" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from t_special_column
+  </select>
+</mapper>

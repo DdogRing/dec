@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ddogring.dec.mapper.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.ddogring.dec.entity.Article">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="special_column_id" jdbcType="INTEGER" property="specialColumnId" />
+    <result column="article_title" jdbcType="VARCHAR" property="articleTitle" />
+    <result column="article_content" jdbcType="VARCHAR" property="articleContent" />
+    <result column="is_enable" jdbcType="BIT" property="isEnable" />
+    <result column="create_time" jdbcType="DATE" property="createTime" />
+    <result column="upd_time" jdbcType="DATE" property="updTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, special_column_id, article_title, article_content, is_enable, create_time, upd_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ddogring.dec.entity.Article">
+    insert into t_article (id, special_column_id, article_title, 
+      article_content, is_enable, create_time, 
+      upd_time)
+    values (#{id,jdbcType=INTEGER}, #{specialColumnId,jdbcType=INTEGER}, #{articleTitle,jdbcType=VARCHAR}, 
+      #{articleContent,jdbcType=VARCHAR}, #{isEnable,jdbcType=BIT}, #{createTime,jdbcType=DATE}, 
+      #{updTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ddogring.dec.entity.Article">
+    insert into t_article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="specialColumnId != null">
+        special_column_id,
+      </if>
+      <if test="articleTitle != null">
+        article_title,
+      </if>
+      <if test="articleContent != null">
+        article_content,
+      </if>
+      <if test="isEnable != null">
+        is_enable,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updTime != null">
+        upd_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="specialColumnId != null">
+        #{specialColumnId,jdbcType=INTEGER},
+      </if>
+      <if test="articleTitle != null">
+        #{articleTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="articleContent != null">
+        #{articleContent,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnable != null">
+        #{isEnable,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="updTime != null">
+        #{updTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ddogring.dec.entity.Article">
+    update t_article
+    <set>
+      <if test="specialColumnId != null">
+        special_column_id = #{specialColumnId,jdbcType=INTEGER},
+      </if>
+      <if test="articleTitle != null">
+        article_title = #{articleTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="articleContent != null">
+        article_content = #{articleContent,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnable != null">
+        is_enable = #{isEnable,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="updTime != null">
+        upd_time = #{updTime,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ddogring.dec.entity.Article">
+    update t_article
+    set special_column_id = #{specialColumnId,jdbcType=INTEGER},
+      article_title = #{articleTitle,jdbcType=VARCHAR},
+      article_content = #{articleContent,jdbcType=VARCHAR},
+      is_enable = #{isEnable,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=DATE},
+      upd_time = #{updTime,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="articleList" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from t_article
+  </select>
+
+  <select id="articleListById" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from t_article
+    where 1=1
+    and special_column_id = #{id}
+  </select>
+
+</mapper>
